@@ -5,20 +5,88 @@
   <title>Monisha Weds Gokul Countdown Begins</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #222;
-      color: #fff;
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       text-align: center;
-      padding-top: 100px;
+      padding-top: 50px;
+      margin: 0;
+      color: #fff;
+      overflow: hidden;
     }
-    #countdown {
+
+    /* Floating hearts animation */
+    .heart {
+      position: fixed;
+      color: #ff4d6d;
+      font-size: 24px;
+      animation: float 6s infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Title styling */
+    h1 {
       font-size: 48px;
+      text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d, 0 0 40px #ff4d6d;
+      animation: glow 2s ease-in-out infinite alternate, bounce 2s infinite;
+      z-index: 2;
+      position: relative;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d; }
+      to { text-shadow: 0 0 20px #ff1e4d, 0 0 40px #ff1e4d; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Image styling */
+    .wedding-photo img {
+      max-width: 300px;
+      border-radius: 20px;
+      border: 5px solid #fff;
+      box-shadow: 0 0 20px rgba(255, 77, 109, 0.7);
+      animation: fadeIn 2s ease-in-out;
+      z-index: 2;
+      position: relative;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Countdown styling */
+    #countdown {
+      font-size: 40px;
       margin-top: 20px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #ff4d6d;
+      background: rgba(0,0,0,0.2);
+      padding: 15px 30px;
+      border-radius: 20px;
+      display: inline-block;
+      z-index: 2;
+      position: relative;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Monisha WedLock Gokul Countdown Begins</h1>
+
+  <h1>💖 Monisha ❤️ Gokul 💖<br>Countdown Begins</h1>
+
+  <!-- Wedding Image -->
+  <div class="wedding-photo">
+    <img src="images/monisha-gokul.jpg" alt="Monisha & Gokul" />
+  </div>
+
+  <!-- Countdown -->
   <div id="countdown">Loading...</div>
 
   <script>
@@ -28,7 +96,7 @@
       const diff = endDate - now;
 
       if (diff <= 0) {
-        document.getElementById("countdown").textContent = "The day has arrived!";
+        document.getElementById("countdown").textContent = "💍 The day has arrived! 💍";
         return;
       }
 
@@ -38,11 +106,23 @@
       const seconds = Math.floor((diff / 1000) % 60);
 
       document.getElementById("countdown").textContent =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+    }
+
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
     }
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+    setInterval(createHeart, 500);
   </script>
 </body>
 </html>
